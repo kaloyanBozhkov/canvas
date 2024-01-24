@@ -57,6 +57,9 @@ impl Context {
     svg_export_flag: crate::sk::SvgExportFlag,
     color_space: ColorSpace,
   ) -> Result<Self> {
+    // Default fallback of canvas on browser and skia-canvas is 350x150
+    let width = if width <= 0 { 350 } else { width };
+    let height = if height <= 0 { 150 } else { height };
     let (surface, stream) = Surface::new_svg(
       width,
       height,
